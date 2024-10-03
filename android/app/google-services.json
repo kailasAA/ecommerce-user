@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "347956806517",
+    "project_id": "seller-stock",
+    "storage_bucket": "seller-stock.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347956806517:android:b7563152ca133882ab893c",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce_user_side"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347956806517-qdmu7pmfaki2369eb9clrhl84g2kgbfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI1DaKHW3shgIY9YKuNQEDQ-_Z-Dr1fI8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347956806517-qdmu7pmfaki2369eb9clrhl84g2kgbfb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "347956806517-dtgh7drqc5hp2of7pd98framnk4ee0up.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shoeApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347956806517:android:421a64403a56bfb6ab893c",
+        "android_client_info": {
+          "package_name": "com.example.shoe_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347956806517-qdmu7pmfaki2369eb9clrhl84g2kgbfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI1DaKHW3shgIY9YKuNQEDQ-_Z-Dr1fI8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347956806517-qdmu7pmfaki2369eb9clrhl84g2kgbfb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "347956806517-dtgh7drqc5hp2of7pd98framnk4ee0up.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shoeApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
