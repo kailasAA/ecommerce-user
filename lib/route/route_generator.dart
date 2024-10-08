@@ -1,8 +1,14 @@
+import 'package:ecommerce_user_side/route/argument_models.dart/category_product_argeuments.dart';
+import 'package:ecommerce_user_side/route/argument_models.dart/confirm_order_arguments.dart';
 import 'package:ecommerce_user_side/route/argument_models.dart/product_detail_arguments.dart';
 import 'package:ecommerce_user_side/route/argument_models.dart/search_screen_arguments.dart';
+import 'package:ecommerce_user_side/views/address/view/add_adress_screen.dart';
+import 'package:ecommerce_user_side/views/address/view/adress_screen.dart';
 import 'package:ecommerce_user_side/views/auth/auth.dart';
 import 'package:ecommerce_user_side/views/auth/login/view/login_screen.dart';
 import 'package:ecommerce_user_side/views/auth/sign_up/view/sign_up_screen.dart';
+import 'package:ecommerce_user_side/views/category_products/view/category_products.dart';
+import 'package:ecommerce_user_side/views/confirm_order_screen/view/confirm_order_screen.dart';
 import 'package:ecommerce_user_side/views/detail_page/detail_screen.dart';
 import 'package:ecommerce_user_side/views/main_screen/view/main_screen.dart';
 import 'package:ecommerce_user_side/views/search_screen/view/search_screen.dart';
@@ -25,10 +31,11 @@ class RouteGenerator {
   static const loginScreen = "loginScreen";
   static const signUpScreen = "signUpScreen";
   static const authScreen = "authScreen";
-  static const addVariantScreen = "addVariantScreen";
-  static const addSizeScreen = "addSizeScreen";
   static const searchScreen = "searchScreen";
-  static const addOrderScreen = "addOrderScreen";
+  static const addAddressScreen = "addAddressScreen";
+  static const categoryProductScreen = "categoryProductScreen";
+  static const addressScreen = "addressScreen";
+  static const confirmOrderScreen = "confirmOrderScreen";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
@@ -55,6 +62,22 @@ class RouteGenerator {
         return buildRoute(settings, const SignUpScreen());
       case authScreen:
         return buildRoute(settings, const AuthCheck());
+      case categoryProductScreen:
+        return buildRoute(
+            settings,
+            CategoryProducts(
+                categoryProductArgeuments:
+                    arguments as CategoryProductArgeuments));
+      case addAddressScreen:
+        return buildRoute(settings, const AddAdressScreen());
+      case addressScreen:
+        return buildRoute(settings, const AdressScreen());
+      case confirmOrderScreen:
+        return buildRoute(
+            settings,
+            OrderConfirmationScreen(
+              confirmOrderArguments: arguments as ConfirmOrderArguments,
+            ));
       default:
         return buildRoute(settings, const SplashScreen());
     }

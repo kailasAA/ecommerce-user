@@ -1,0 +1,134 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_user_side/common/common_functions.dart/show_toast.dart';
+import 'package:ecommerce_user_side/models/cart_model.dart';
+import 'package:ecommerce_user_side/utils/color_pallette.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+class CartProvider extends ChangeNotifier {
+  bool isLoading = false;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  List<CartModel> cartList = [];
+
+// to add items to cart
+  Future<void> addToCart(CartModel cartModel) async {
+    try {
+      await firestore
+          .collection('users')
+          .doc(cartModel.userId)
+          .collection('cart')
+          .add(cartModel.toJson());
+      showToast("successfully added to cart", gravity: ToastGravity.CENTER);
+    } catch (e) {
+      throw Exception("Error adding product to cart: $e");
+    }
+  }
+
+//  to get the items in the cart
+  Future<void> getCartItems({required String userId}) async {
+    isLoading = true;
+    // notifyListeners();
+    try {
+      print("cart items fetched");
+      final data = await firestore
+          .collection("users")
+          .doc(userId)
+          .collection("cart")
+          .get();
+      final doc = data.docs;
+      final list = doc.map(
+        (cart) {
+          return CartModel.fromJson(cart.data());
+        },
+      ).toList();
+      cartList = [];
+      cartList = list;
+      print(cartList);
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      print("cart was not fetched");
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // to increase the quantity of the item
+  Future<void> increaseQuantity(
+      {required String userId, required CartModel cartItem}) async {
+    try {
+      final docRef = await firestore
+          .collection('users')
+          .doc(userId)
+          .collection('cart')
+          .where('sizeId', isEqualTo: cartItem.sizeId)
+          .get();
+
+      if (docRef.docs.isNotEmpty) {
+        int newQuantity = (cartItem.quantity ?? 1) + 1;
+        await docRef.docs.first.reference.update({'quantity': newQuantity});
+        showToast("Quantity increased", gravity: ToastGravity.CENTER);
+
+        await getCartItems(userId: userId);
+      }
+    } catch (e) {
+      showToast(
+        "Error increasing quantity: $e",
+      );
+    }
+  }
+
+// to decrease the quantity of the item
+  Future<void> decreaseQuantity(
+      {required String userId, required CartModel cartItem}) async {
+    try {
+      final docRef = await firestore
+          .collection('users')
+          .doc(userId)
+          .collection('cart')
+          .where('sizeId', isEqualTo: cartItem.sizeId)
+          .get();
+
+      if (docRef.docs.isNotEmpty) {
+        int currentQuantity = cartItem.quantity ?? 1;
+        if (currentQuantity > 1) {
+          int newQuantity = currentQuantity - 1;
+          await docRef.docs.first.reference.update({'quantity': newQuantity});
+          showToast("Quantity decreased", gravity: ToastGravity.CENTER);
+
+          await getCartItems(userId: userId);
+        } else {
+          showToast("Quantity cannot be less than 1",
+              toastColor: Colors.orange, gravity: ToastGravity.CENTER);
+        }
+      }
+    } catch (e) {
+      showToast("Error decreasing quantity: $e",
+          toastColor: Colors.red, gravity: ToastGravity.CENTER);
+    }
+  }
+
+// to remove the item from the cart
+  Future<void> removeItem(
+      {required String userId, required CartModel cartItem}) async {
+    try {
+      final docRef = await firestore
+          .collection('users')
+          .doc(userId)
+          .collection('cart')
+          .where('sizeId', isEqualTo: cartItem.sizeId)
+          .get();
+
+      if (docRef.docs.isNotEmpty) {
+        await docRef.docs.first.reference.delete();
+        showToast("Item removed from cart",
+            toastColor: ColorPallette.redColor, gravity: ToastGravity.CENTER);
+
+        await getCartItems(userId: userId);
+      }
+    } catch (e) {
+      showToast("Error removing item: $e",
+          toastColor: Colors.red, gravity: ToastGravity.CENTER);
+    }
+  }
+}

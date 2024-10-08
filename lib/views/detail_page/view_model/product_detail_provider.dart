@@ -6,7 +6,6 @@ import 'package:ecommerce_user_side/models/variant_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class ProductDetailProvider extends ChangeNotifier {
   bool isLoading = false;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -17,6 +16,7 @@ class ProductDetailProvider extends ChangeNotifier {
   Variant? variant;
   List<SizeModel> variantSizes = [];
   SizeModel? selectedSize;
+  // WishListModel? wishList;
 
 // to get the product details
   Future<void> getProductDetails(String productId) async {
@@ -36,11 +36,12 @@ class ProductDetailProvider extends ChangeNotifier {
   }
 
 // to get the all variants
-  Future<void> getVariants(String productId) async {
+  Future<bool> getVariants(String productId) async {
+    variantList = [];
+    isLoading = true;
+    notifyListeners();
     try {
       variant = null;
-      isLoading = true;
-      notifyListeners();
       var data = await firestore.collection("variants").get();
       final list = data.docs;
       final allVariants = list.map(
@@ -48,7 +49,6 @@ class ProductDetailProvider extends ChangeNotifier {
           return Variant.fromMap(variant.data());
         },
       ).toList();
-      variantList = [];
       variantList = allVariants.where(
         (element) {
           return element.productId == productId;
@@ -58,16 +58,19 @@ class ProductDetailProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       print("variant detail fetched successfully");
+      return true;
     } catch (e) {
       isLoading = false;
       notifyListeners();
       print(e.toString());
+      return false;
     }
   }
 
 // to get all the sizes
   Future<void> getSizes() async {
     try {
+      variantSizes = [];
       isLoading = true;
       notifyListeners();
       final data = await firestore.collection("sizes").get();
@@ -78,7 +81,6 @@ class ProductDetailProvider extends ChangeNotifier {
         },
       ).toList();
 
-      variantSizes = [];
       variantSizes = allSizes.where(
         (size) {
           return size.variantId == variant?.variantId;
@@ -101,10 +103,10 @@ class ProductDetailProvider extends ChangeNotifier {
   Future<void> getVariantDetails(
       String variantId, Variant? selectedVariant) async {
     try {
+      variantSizes = [];
       isLoading = true;
       notifyListeners();
       variant = selectedVariant;
-      variantSizes = [];
       getSizes();
       isLoading = false;
       notifyListeners();
@@ -118,10 +120,56 @@ class ProductDetailProvider extends ChangeNotifier {
 // to update the selected size
   Future<void> selectSize(SizeModel sizeModel) async {
     try {
+      selectedSize = null;
       selectedSize = sizeModel;
       notifyListeners();
     } catch (e) {
       print(e.toString());
     }
   }
+
+  // Future<void> addToWishlist(WishListModel wishListModel) async {
+  //   try {
+  //     await firestore
+  //         .collection('users')
+  //         .doc(wishListModel.userId)
+  //         .collection('wishlist')
+  //         .doc(wishListModel.variantId)
+  //         .set(wishListModel.toJson());
+  //     showToast("Added to wishlist", toastColor: ColorPallette.greenColor);
+  //   } catch (e) {
+  //     showToast("Error adding to wishlist: $e", toastColor: Colors.red);
+  //   }
+  // }
+
+  // Future<void> getWishlistItems({
+  //   required String userId,
+  //   required String variantId,
+  // }) async {
+  //   try {
+  //     final doc = await firestore
+  //         .collection('users')
+  //         .doc(userId)
+  //         .collection('wishlist')
+  //         .doc(variantId)
+  //         .get();
+
+  //     if (doc.exists && doc.data() != null) {
+  //       wishList = WishListModel.fromJson(
+  //           doc.data()!); 
+  //     } else {
+  //       wishList =
+  //           null; 
+  //     }
+
+  //     notifyListeners();
+  //   } catch (e) {
+  //     showToast("Error fetching wishlist: $e", toastColor: Colors.red);
+  //   }
+  // }
+
+
+
+
+
 }

@@ -168,14 +168,18 @@ class ProductTile extends StatelessWidget {
                       product.brandName ?? "",
                       style:
                           FontPallette.headingStyle.copyWith(fontSize: 13.sp),
+                      textScaler: TextScaler.linear(1.0),
                     ),
                     Text(
                       "Price : ₹${sizes?[0].sellingPrice ?? ""}",
-                      style:
-                          FontPallette.headingStyle.copyWith(fontSize: 13.sp),
+                      textScaler: TextScaler.linear(1.0),
+                      style: FontPallette.headingStyle.copyWith(
+                        fontSize: 13.sp,
+                      ),
                     ),
                     Text(
                       "Size : ${sizes?[0].size ?? ""}",
+                      textScaler: TextScaler.linear(1.0),
                       style: FontPallette.headingStyle.copyWith(
                         fontSize: 13.sp,
                       ),

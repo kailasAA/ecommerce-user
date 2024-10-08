@@ -47,8 +47,14 @@ class LoginProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     } on FirebaseAuthException catch (e) {
+      print(e.toString());
       isLoading = false;
       notifyListeners();
     }
+  }
+
+  void reset() {
+    isLoading = false;
+    notifyListeners();
   }
 }

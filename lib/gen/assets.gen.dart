@@ -39,6 +39,11 @@ class Assets {
       'assets/label-price-svgrepo-com.svg';
   static const String noteNotepadSvgrepoCom =
       'assets/note-notepad-svgrepo-com.svg';
+  static const AssetGenImage pexelsAlexandr =
+      AssetGenImage('assets/pexels-alexandr.jpg');
+  static const AssetGenImage pexelsThelazyartist =
+      AssetGenImage('assets/pexels-thelazyartist.jpg');
+  static const AssetGenImage pexels = AssetGenImage('assets/pexels.jpg');
   static const String productsProductSvgrepoCom =
       'assets/products-product-svgrepo-com.svg';
   static const String profileCircleSvgrepoCom =

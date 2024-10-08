@@ -5,7 +5,6 @@ import 'package:ecommerce_user_side/models/size_model.dart';
 import 'package:ecommerce_user_side/models/variant_model.dart';
 import 'package:flutter/material.dart';
 
-
 class HomeProvider extends ChangeNotifier {
   bool isLoading = false;
   List<CategoryModel> categoryList = [];
@@ -14,7 +13,7 @@ class HomeProvider extends ChangeNotifier {
   List<Variant> variantList = [];
   List<ProductModel> searchedProducts = [];
   List<SizeModel> sizeList = [];
-
+  List<ProductModel> categoryProducts = [];
   void changeSearchedProducts(List<ProductModel> products) {
     searchedProducts = products;
     notifyListeners();
@@ -38,6 +37,34 @@ class HomeProvider extends ChangeNotifier {
     } catch (e) {
       isLoading = false;
       notifyListeners();
+    }
+  }
+
+  // to get all the products
+  Future<void> getCategoryProducts(String categoryId) async {
+    isLoading = true;
+    notifyListeners();
+    try {
+      categoryProducts = [];
+
+      var data = await firestore
+          .collection("products")
+          .where("category_id", isEqualTo: categoryId)
+          .get();
+      var list = data.docs;
+      categoryProducts = list
+          .map(
+            (product) => ProductModel.fromMap(product.data()),
+          )
+          .toList();
+      isLoading = false;
+      notifyListeners();
+      print(categoryProducts);
+      print("product fetched successfully");
+    } catch (e) {
+      isLoading = false;
+      notifyListeners();
+      print(e.toString());
     }
   }
 

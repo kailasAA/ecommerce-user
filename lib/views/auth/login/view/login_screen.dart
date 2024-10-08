@@ -116,17 +116,20 @@ class SimpleButton extends StatelessWidget {
     this.borderRadius,
     this.childWidget,
     this.buttonColor,
+    this.width,
   });
   final double? height;
   final double? borderRadius;
   final Widget? childWidget;
   final Color? buttonColor;
+  final double? width;
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
+      width: width,
       decoration: BoxDecoration(
-          color: ColorPallette.blackColor,
+          color: buttonColor ?? ColorPallette.blackColor,
           borderRadius: BorderRadius.circular(borderRadius ?? 15)),
       child: Center(child: childWidget),
     );

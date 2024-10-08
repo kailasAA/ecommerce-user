@@ -44,7 +44,11 @@ class MyApp extends StatelessWidget {
             return CustomError(errorDetails: errorDetails);
           };
 
-          return widget ?? const SizedBox();
+          return MediaQuery.withClampedTextScaling(
+            minScaleFactor: 0.75,
+            maxScaleFactor: 1.2,
+            child: widget ?? const SizedBox(),
+          );
         },
       ),
     );

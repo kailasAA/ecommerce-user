@@ -1,5 +1,6 @@
-
 import 'package:ecommerce_user_side/models/category_model.dart';
+import 'package:ecommerce_user_side/route/argument_models.dart/category_product_argeuments.dart';
+import 'package:ecommerce_user_side/route/route_generator.dart';
 import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/utils/font_pallette.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,14 @@ class CategoryListview extends StatelessWidget {
               padding: EdgeInsets.only(top: 15.h),
               itemCount: categoryList.length,
               itemBuilder: (context, index) => GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, RouteGenerator.categoryProductScreen,
+                      arguments: CategoryProductArgeuments(
+                          categoryId: categoryList[index].id ?? "",
+                          categoryName:
+                              categoryList[index].categoryName ?? ""));
+                },
                 child: Padding(
                   padding: EdgeInsets.all(10.r),
                   child: Container(

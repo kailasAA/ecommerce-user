@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_user_side/common_widgets/progress_indicators.dart';
 import 'package:ecommerce_user_side/gen/assets.gen.dart';
 import 'package:ecommerce_user_side/route/argument_models.dart/search_screen_arguments.dart';
@@ -44,7 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
               p1.variantList, p1.sizeList);
         },
         builder: (context, value, child) {
-          List<Color> colorlist = [Colors.black, Colors.yellow, Colors.blue];
+          List<AssetGenImage> imageList = [
+            Assets.pexels,
+            Assets.pexelsAlexandr,
+            Assets.pexelsThelazyartist
+          ];
           final isLoading = value.item2;
           List<CategoryModel> categoryList = value.item1;
           List<ProductModel> productList = value.item3;
@@ -96,21 +99,29 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             height: 250.h,
                             child: CarouselView(
-                                scrollDirection: Axis.horizontal,
-                                padding: EdgeInsets.all(10.r),
-                                itemSnapping: true,
-                                itemExtent: 380.w,
-                                children: List.generate(
-                                  colorlist.length,
-                                  (index) {
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15.r),
-                                          color: colorlist[index]),
-                                    );
-                                  },
-                                )),
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.all(10.r),
+                              itemSnapping: true,
+                              itemExtent: 380.w,
+                              children: List.generate(
+                                imageList.length,
+                                (index) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: ColorPallette.scaffoldBgColor,
+                                      borderRadius: BorderRadius.circular(15.r),
+                                      image: DecorationImage(
+                                        image: imageList[index]
+                                            .image()
+                                            .image, // Use image as DecorationImage
+                                        fit: BoxFit
+                                            .cover, // Set the fit to cover
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                           ),
                           30.verticalSpace,
                         ],

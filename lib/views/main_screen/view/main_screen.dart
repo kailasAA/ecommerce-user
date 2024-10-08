@@ -1,6 +1,7 @@
 import 'package:ecommerce_user_side/gen/assets.gen.dart';
 import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/utils/font_pallette.dart';
+import 'package:ecommerce_user_side/views/cart/view/cart_screen.dart';
 import 'package:ecommerce_user_side/views/categories/view/categories.dart';
 import 'package:ecommerce_user_side/views/home/view/home_screen.dart';
 import 'package:ecommerce_user_side/views/main_screen/viemodel/main_screen_provider.dart';
@@ -17,7 +18,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mainscreenProvider = context.read<MainScreenProvider>();
-    final PageController pageController = PageController();
+    // final PageController pageController = PageController();
     List<String> icons = [
       Assets.home1SvgrepoCom,
       Assets.rotateSvgrepoCom,
@@ -42,13 +43,18 @@ class MainScreen extends StatelessWidget {
         SystemNavigator.pop();
       },
       child: Scaffold(
-        // backgroundColor: ColorPallette.scaffoldBgColor,
-        body: PageView(
-            controller: pageController,
-            onPageChanged: (value) {
-              mainscreenProvider.updateIndex(value);
-            },
-            children: screenList),
+        backgroundColor: ColorPallette.scaffoldBgColor,
+        body: Selector<MainScreenProvider, int>(
+          selector: (p0, p1) => p1.selectedIndex,
+          builder: (context, value, child) {
+            return PageView(
+                controller: context.read<MainScreenProvider>().pageController,
+                onPageChanged: (value) {
+                  mainscreenProvider.updateIndex(value);
+                },
+                children: screenList);
+          },
+        ),
         bottomNavigationBar: Selector<MainScreenProvider, int>(
           selector: (_, mainScreenProvider) => mainScreenProvider.selectedIndex,
           builder: (context, value, child) {
@@ -68,9 +74,9 @@ class MainScreen extends StatelessWidget {
               unselectedItemColor: ColorPallette.greyColor,
               onTap: (value) {
                 mainscreenProvider.updateIndex(value);
-                pageController.jumpToPage(
-                  value,
-                );
+                context.read<MainScreenProvider>().pageController.jumpToPage(
+                      value,
+                    );
               },
               items: List.generate(
                 bottomnavText.length,
@@ -105,19 +111,3 @@ class MainScreen extends StatelessWidget {
     );
   }
 }
-
-class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorPallette.scaffoldBgColor,
-      body: const Center(
-        child: Text("Cart Screen"),
-      ),
-    );
-  }
-}
-
-
