@@ -1,6 +1,9 @@
 import 'package:ecommerce_user_side/models/cart_model.dart';
+import 'package:ecommerce_user_side/models/order_model.dart';
 import 'package:ecommerce_user_side/route/route_generator.dart';
 import 'package:ecommerce_user_side/views/auth/login/view/login_screen.dart';
+import 'package:ecommerce_user_side/views/cart/view_model/cart_provider.dart';
+import 'package:ecommerce_user_side/views/confirm_order_screen/view_model/order_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +15,7 @@ import 'package:ecommerce_user_side/common_widgets/cache_image.dart';
 import 'package:ecommerce_user_side/route/argument_models.dart/confirm_order_arguments.dart';
 import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/utils/font_pallette.dart';
-import 'package:ecommerce_user_side/views/address/model/address_model.dart';
+import 'package:ecommerce_user_side/models/address_model.dart';
 import 'package:ecommerce_user_side/views/address/view_model/address_provider.dart';
 
 class OrderConfirmationScreen extends StatefulWidget {
@@ -62,7 +65,7 @@ class _OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
             buildCartItemsList(cartList),
             buildAddressList(),
             buildTotalPrice(totalPrice),
-            buildConfirmOrderButton(),
+            buildConfirmOrderButton(cartList, totalPrice),
           ],
         ),
       ),
@@ -168,7 +171,7 @@ class _OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
     );
   }
 
-  Widget buildConfirmOrderButton() {
+  Widget buildConfirmOrderButton(List<CartModel> cartList, int totalPrice) {
     return SliverToBoxAdapter(
       child: Column(
         children: [
@@ -178,9 +181,22 @@ class _OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
             child: Selector<AddressProvider, AddressModel?>(
               selector: (_, provider) => provider.selectedAdress,
               builder: (context, selectedAddress, _) {
+                DateTime dateTime = DateTime.now();
                 return GestureDetector(
                   onTap: selectedAddress != null
-                      ? () {}
+                      ? () {
+                          context.read<OrderProvider>().addOrders(OrderModel(
+                                address: selectedAddress,
+                                cartItems: cartList,
+                                orderDate: dateTime,
+                                userId: user?.uid ?? "",
+                                totalPrice: totalPrice.toString(),
+                                userName: user?.email ?? "",
+                              ));
+                          context
+                              .read<CartProvider>()
+                              .clearCart(userId: user?.uid ?? "");
+                        }
                       : () => showToast("Please select an address"),
                   child: SimpleButton(
                     borderRadius: 25.r,

@@ -1,8 +1,9 @@
+import 'package:ecommerce_user_side/common/common_functions.dart/dialog_box.dart';
 import 'package:ecommerce_user_side/common_widgets/progress_indicators.dart';
 import 'package:ecommerce_user_side/route/route_generator.dart';
 import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/utils/font_pallette.dart';
-import 'package:ecommerce_user_side/views/address/model/address_model.dart';
+import 'package:ecommerce_user_side/models/address_model.dart';
 import 'package:ecommerce_user_side/views/address/view_model/address_provider.dart';
 import 'package:ecommerce_user_side/views/auth/login/view/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -101,9 +102,16 @@ class _AdressScreenState extends State<AdressScreen> {
                                 icon: const Icon(Icons.delete,
                                     color: Colors.white),
                                 onPressed: () {
-                                  addressProvider.deleteAddress(
-                                      addressList[index].id ?? "",
-                                      user?.uid ?? "");
+                                  confirmationDialog(
+                                    context: context,
+                                    content: "Do you want to remove this ?",
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      addressProvider.deleteAddress(
+                                          addressList[index].id ?? "",
+                                          user?.uid ?? "");
+                                    },
+                                  );
                                 },
                               )
                             ],

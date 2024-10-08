@@ -41,7 +41,6 @@ class CartProvider extends ChangeNotifier {
           return CartModel.fromJson(cart.data());
         },
       ).toList();
-      cartList = [];
       cartList = list;
       print(cartList);
       isLoading = false;
@@ -127,6 +126,31 @@ class CartProvider extends ChangeNotifier {
         await getCartItems(userId: userId);
       }
     } catch (e) {
+      showToast("Error removing item: $e",
+          toastColor: Colors.red, gravity: ToastGravity.CENTER);
+    }
+  }
+
+  // clear cart
+  Future<void> clearCart({required String userId}) async {
+    isLoading = true;
+    notifyListeners();
+    try {
+      print(userId);
+      final cartRef =
+          firestore.collection('users').doc(userId).collection('cart');
+
+      final snapshot = await cartRef.get();
+
+      for (var element in snapshot.docs) {
+        cartRef.doc(element.id).delete();
+      }
+      getCartItems(userId: userId);
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      isLoading = false;
+      notifyListeners();
       showToast("Error removing item: $e",
           toastColor: Colors.red, gravity: ToastGravity.CENTER);
     }

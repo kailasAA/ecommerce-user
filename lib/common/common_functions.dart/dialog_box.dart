@@ -1,61 +1,64 @@
-
 import 'package:ecommerce_user_side/common_widgets/neumorphic.dart';
 import 'package:ecommerce_user_side/utils/font_pallette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 void confirmationDialog(
     {required BuildContext context,
     String? heading,
     String? content,
-    required buttonText,
     void Function()? onTap}) {
   showDialog(
     context: context,
     builder: (context) {
       return SizedBox(
-        height: 30.h,
+        height: 50.h,
         child: Padding(
-          padding: EdgeInsets.all(10.r),
+          padding: EdgeInsets.all(15.r),
           child: AlertDialog(
-            // title: Text(heading ?? ""),
-            content: Text(
-              content ?? "",
-              style: FontPallette.headingStyle.copyWith(fontSize: 15.sp),
+            insetPadding: const EdgeInsets.all(15),
+            content: Padding(
+              padding: EdgeInsets.all(8.h),
+              child: Text(
+                textAlign: TextAlign.center,
+                content ?? "",
+                style: FontPallette.headingStyle.copyWith(fontSize: 13.sp),
+              ),
             ),
-
             actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                      onTap: onTap,
+              Padding(
+                padding: EdgeInsets.all(8.r),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                        onTap: onTap,
+                        child: NeumorphicContainer(
+                            height: 40.h,
+                            width: 100.w,
+                            childWidget: Center(
+                                child: Text(
+                              "Yes",
+                              style: FontPallette.headingStyle
+                                  .copyWith(fontSize: 13.sp),
+                            )))),
+                    20.horizontalSpace,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
                       child: NeumorphicContainer(
                           height: 40.h,
                           width: 100.w,
                           childWidget: Center(
                               child: Text(
-                            buttonText,
+                            'No',
                             style: FontPallette.headingStyle
                                 .copyWith(fontSize: 13.sp),
-                          )))),
-                  20.horizontalSpace,
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: NeumorphicContainer(
-                        height: 40.h,
-                        width: 100.w,
-                        childWidget: Center(
-                            child: Text(
-                          'Cancel',
-                          style: FontPallette.headingStyle
-                              .copyWith(fontSize: 13.sp),
-                        ))),
-                  ),
-                ],
+                          ))),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

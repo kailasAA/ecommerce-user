@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_user_side/common/common_functions.dart/show_toast.dart';
 import 'package:ecommerce_user_side/models/product_model.dart';
 import 'package:ecommerce_user_side/models/size_model.dart';
 import 'package:ecommerce_user_side/models/variant_model.dart';
+import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -16,7 +18,7 @@ class ProductDetailProvider extends ChangeNotifier {
   Variant? variant;
   List<SizeModel> variantSizes = [];
   SizeModel? selectedSize;
-  // WishListModel? wishList;
+  List<String> wishListIds = [];
 
 // to get the product details
   Future<void> getProductDetails(String productId) async {
@@ -128,48 +130,60 @@ class ProductDetailProvider extends ChangeNotifier {
     }
   }
 
-  // Future<void> addToWishlist(WishListModel wishListModel) async {
-  //   try {
-  //     await firestore
-  //         .collection('users')
-  //         .doc(wishListModel.userId)
-  //         .collection('wishlist')
-  //         .doc(wishListModel.variantId)
-  //         .set(wishListModel.toJson());
-  //     showToast("Added to wishlist", toastColor: ColorPallette.greenColor);
-  //   } catch (e) {
-  //     showToast("Error adding to wishlist: $e", toastColor: Colors.red);
-  //   }
-  // }
+  Future<void> addToWishlist(String userId, String productId) async {
+    try {
+      final wishlistReference = firestore
+          .collection('users')
+          .doc(userId)
+          .collection('wishlist')
+          .doc('wishlistItems');
 
-  // Future<void> getWishlistItems({
-  //   required String userId,
-  //   required String variantId,
-  // }) async {
-  //   try {
-  //     final doc = await firestore
-  //         .collection('users')
-  //         .doc(userId)
-  //         .collection('wishlist')
-  //         .doc(variantId)
-  //         .get();
+      final snapshot = await wishlistReference.get();
 
-  //     if (doc.exists && doc.data() != null) {
-  //       wishList = WishListModel.fromJson(
-  //           doc.data()!); 
-  //     } else {
-  //       wishList =
-  //           null; 
-  //     }
+      if (snapshot.exists) {
+        List<String> productIds =
+            List<String>.from(snapshot.data()?['productIds'] ?? []);
 
-  //     notifyListeners();
-  //   } catch (e) {
-  //     showToast("Error fetching wishlist: $e", toastColor: Colors.red);
-  //   }
-  // }
+        if (!productIds.contains(productId)) {
+          productIds.add(productId);
+          await wishlistReference.update({'productIds': productIds});
+        } else {
+          productIds.remove(productId);
+          await wishlistReference.set({
+            'productIds': productIds,
+          });
+        }
+      } else {
+        await wishlistReference.set({
+          'productIds': [productId],
+        });
+      }
+      getWishlistItems(userId: userId);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
+  Future<void> getWishlistItems({
+    required String userId,
+  }) async {
+    try {
+      final doc = await firestore
+          .collection('users')
+          .doc(userId)
+          .collection('wishlist')
+          .doc('wishlistItems')
+          .get();
 
-
-
-
+      if (doc.exists) {
+        List<String> productIds =
+            List<String>.from(doc.data()?['productIds'] ?? []);
+        wishListIds = productIds;
+        notifyListeners();
+        print("wishlist  fetched succesfully $wishListIds");
+      }
+    } catch (e) {
+      showToast("Error fetching wishlist: $e", toastColor: Colors.red);
+    }
+  }
 }

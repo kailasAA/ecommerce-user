@@ -84,7 +84,10 @@ class _DetailScreenState extends State<DetailScreen> {
               ? const LoadingAnimation()
               : ListView(
                   children: [
-                    const ImageSlider(),
+                     ImageSlider(
+                      productId: widget.productDetailArguments.product.id??"",
+                      user: user,
+                    ),
                     20.verticalSpace,
                     ProductDetailsWidget(
                       categoryName: categoryName,

@@ -3,6 +3,7 @@ import 'package:ecommerce_user_side/views/auth/login/view_model/login_provider.d
 import 'package:ecommerce_user_side/views/auth/sign_up/view_model/signup_provider.dart';
 import 'package:ecommerce_user_side/views/cart/view_model/cart_provider.dart';
 import 'package:ecommerce_user_side/views/categories/view_model.dart/catgeory_provider.dart';
+import 'package:ecommerce_user_side/views/confirm_order_screen/view_model/order_provider.dart';
 import 'package:ecommerce_user_side/views/detail_page/view_model/product_detail_provider.dart';
 import 'package:ecommerce_user_side/views/home/view_model/home_provider.dart';
 import 'package:ecommerce_user_side/views/main_screen/viemodel/main_screen_provider.dart';
@@ -34,6 +35,9 @@ class Multiproviders {
     ),
     ChangeNotifierProvider(
       create: (context) => AddressProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => OrderProvider(),
     ),
   ];
 }

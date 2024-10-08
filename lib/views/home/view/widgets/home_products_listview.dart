@@ -58,7 +58,7 @@ class HomeProductListWithHeading extends StatelessWidget {
                         },
                       ).toList();
                       return ProductTile(
-                        height: 270.h,
+                        height: 260.h,
                         sizes: sizeList,
                         product: product,
                         variant: variant,
@@ -107,8 +107,8 @@ class ProductTile extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(10.r),
         child: NeumorphicContainer(
-          offset: const Offset(3, 3),
-          blurRadius: 12.r,
+          offset: const Offset(2, 2),
+          blurRadius: 15.r,
           height: height,
           width: width ?? 160.w,
           childWidget: Padding(
@@ -168,22 +168,36 @@ class ProductTile extends StatelessWidget {
                       product.brandName ?? "",
                       style:
                           FontPallette.headingStyle.copyWith(fontSize: 13.sp),
-                      textScaler: TextScaler.linear(1.0),
+                      textScaler: const TextScaler.linear(1.0),
                     ),
-                    Text(
-                      "Price : ₹${sizes?[0].sellingPrice ?? ""}",
-                      textScaler: TextScaler.linear(1.0),
-                      style: FontPallette.headingStyle.copyWith(
-                        fontSize: 13.sp,
-                      ),
-                    ),
-                    Text(
-                      "Size : ${sizes?[0].size ?? ""}",
-                      textScaler: TextScaler.linear(1.0),
-                      style: FontPallette.headingStyle.copyWith(
-                        fontSize: 13.sp,
-                      ),
-                    ),
+                    (sizes ?? []).isEmpty
+                        ? const Row()
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Price : ${sizes?[0].sellingPrice ?? ""}",
+                                style: FontPallette.headingStyle
+                                    .copyWith(fontSize: 13.sp),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Size : ${sizes?[0].size ?? ""}",
+                                    style: FontPallette.headingStyle
+                                        .copyWith(fontSize: 13.sp),
+                                  ),
+                                  Text(
+                                    "Stock : ${sizes?[0].stock ?? ""}",
+                                    style: FontPallette.headingStyle
+                                        .copyWith(fontSize: 13.sp),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                   ],
                 )
               ],

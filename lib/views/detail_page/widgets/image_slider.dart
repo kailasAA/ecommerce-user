@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_user_side/common_widgets/progress_indicators.dart';
 import 'package:ecommerce_user_side/models/variant_model.dart';
+import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/views/detail_page/view_model/product_detail_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -9,66 +11,24 @@ import 'package:provider/provider.dart';
 class ImageSlider extends StatefulWidget {
   const ImageSlider({
     super.key,
-    //  required this.variant
+    this.user,
+    required this.productId,
   });
-  // final Variant? variant;
+  final User? user;
+  final String productId;
   @override
   State<ImageSlider> createState() => _ImageSliderState();
 }
 
 class _ImageSliderState extends State<ImageSlider> {
-  // int page = 0;
-  // int nextPage = 0;
-  // final PageController pageController =
-  //     PageController(initialPage: 0, viewportFraction: 1);
-  // @override
-  // void initState() {
-  //   WidgetsBinding.instance.addPostFrameCallback(
-  //     (timeStamp) {
-  //       _listenController();
-  //       startAutoScroll();
-  //     },
-  //   );
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    context
+        .read<ProductDetailProvider>()
+        .getWishlistItems(userId: widget.user?.uid ?? "");
 
-  // void _listenController() {
-  //   pageController.addListener(() {
-  //     page = pageController.page!.round();
-  //     nextPage = page + 1;
-  //   });
-  // }
-
-  // void startAutoScroll() {
-  //   Future.delayed(const Duration(milliseconds: 300)).then(
-  //     (value) {
-  //       if (pageController.hasClients && mounted) {
-  //         nextPage = page + 1;
-  //         Future.delayed(const Duration(
-  //           seconds: 2,
-  //         )).then(
-  //           (value) {
-  //             if (pageController.hasClients && mounted) {
-  //               pageController
-  //                   .animateToPage(nextPage,
-  //                       duration: const Duration(milliseconds: 400),
-  //                       curve: Curves.linearToEaseOut)
-  //                   .then(
-  //                     (value) => startAutoScroll(),
-  //                   );
-  //             }
-  //           },
-  //         );
-  //       }
-  //     },
-  //   );
-  // }
-
-  // @override
-  // void dispose() {
-  //   pageController.dispose();
-  //   super.dispose();
-  // }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +49,7 @@ class _ImageSliderState extends State<ImageSlider> {
                       (index) {
                         return Container(
                           decoration: BoxDecoration(
+                            color: Colors.transparent,
                             borderRadius: BorderRadius.circular(15.r),
                           ),
                           child: ClipRRect(
@@ -96,8 +57,7 @@ class _ImageSliderState extends State<ImageSlider> {
                               top: Radius.circular(12),
                             ),
                             child: CachedNetworkImage(
-                              imageUrl:
-                                  variant?.imageUrlList?[index] ?? "",
+                              imageUrl: variant?.imageUrlList?[index] ?? "",
                               imageBuilder: (context, imageProvider) {
                                 return Container(
                                   width: double.infinity,
@@ -168,23 +128,28 @@ class _ImageSliderState extends State<ImageSlider> {
               //   ),
               // );
             }),
-        // Positioned(
-        //     top: 15.h,
-        //     right: 15.w,
-        //     child: Container(
-        //       height: 35.r,
-        //       width: 35.r,
-        //       decoration: BoxDecoration(
-        //           borderRadius: BorderRadius.circular(50.r),
-        //           color: ColorPallette.lightGreyColor),
-        //       child: IconButton(
-        //           onPressed: () {},
-        //           icon: Icon(
-        //             Icons.favorite_rounded,
-        //             color: ColorPallette.redColor,
-        //             size: 20.r,
-        //           )),
-        //     ))
+        Positioned(
+            top: 15.h,
+            right: 15.w,
+            child: Selector<ProductDetailProvider, List<String>>(
+              selector: (p0, p1) => p1.wishListIds,
+              builder: (context, value, child) {
+                final wishListIds = value;
+                return IconButton(
+                    onPressed: () {
+                      print("add to wishlist called");
+                      context.read<ProductDetailProvider>().addToWishlist(
+                          widget.user?.uid ?? "", widget.productId);
+                    },
+                    icon: Icon(
+                      wishListIds.contains(widget.productId)
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_outline_sharp,
+                      color: ColorPallette.redColor,
+                      size: 30.r,
+                    ));
+              },
+            ))
       ],
     );
   }

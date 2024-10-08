@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_user_side/common/common_functions.dart/dialog_box.dart';
 import 'package:ecommerce_user_side/common_widgets/progress_indicators.dart';
 import 'package:ecommerce_user_side/models/cart_model.dart';
 import 'package:ecommerce_user_side/route/argument_models.dart/confirm_order_arguments.dart';
@@ -139,11 +140,19 @@ class _CartScreenState extends State<CartScreen> {
                                       children: [
                                         IconButton(
                                           onPressed: () {
-                                            context
-                                                .read<CartProvider>()
-                                                .removeItem(
-                                                    userId: user?.uid ?? '',
-                                                    cartItem: cartItem);
+                                            confirmationDialog(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                  context
+                                                      .read<CartProvider>()
+                                                      .removeItem(
+                                                          userId:
+                                                              user?.uid ?? '',
+                                                          cartItem: cartItem);
+                                                },
+                                                context: context,
+                                                content:
+                                                    "Do you want remove this ?");
                                           },
                                           icon: const Icon(Icons.delete,
                                               color: Colors.white),

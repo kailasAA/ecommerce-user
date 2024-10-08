@@ -1,3 +1,4 @@
+import 'package:ecommerce_user_side/common/common_functions.dart/dialog_box.dart';
 import 'package:ecommerce_user_side/route/route_generator.dart';
 import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/utils/font_pallette.dart';
@@ -59,7 +60,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               20.verticalSpace,
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, RouteGenerator.orderScreen);
+                },
                 child: SimpleButton(
                   borderRadius: 25,
                   height: 70.h,
@@ -127,11 +130,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               10.verticalSpace,
               InkWell(
-                onTap: () async {
-                  loginProvider.logOut();
-                  Navigator.pushReplacementNamed(
-                      context, RouteGenerator.loginScreen);
-                  mainScreenProvider.reset();
+                onTap: () {
+                  confirmationDialog(
+                    context: context,
+                    content: "Do you want to log out ?",
+                    onTap: () {
+                      loginProvider.logOut();
+                      Navigator.pushReplacementNamed(
+                          context, RouteGenerator.loginScreen);
+                      mainScreenProvider.reset();
+                    },
+                  );
                 },
                 child: SimpleButton(
                   borderRadius: 25,

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_user_side/common/common_functions.dart/show_toast.dart';
-import 'package:ecommerce_user_side/views/address/model/address_model.dart';
+import 'package:ecommerce_user_side/models/address_model.dart';
 import 'package:flutter/material.dart';
 
 class AddressProvider extends ChangeNotifier {
