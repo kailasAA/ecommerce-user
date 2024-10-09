@@ -14,6 +14,7 @@ import 'package:ecommerce_user_side/views/main_screen/view/main_screen.dart';
 import 'package:ecommerce_user_side/views/orders/view/orders_screen.dart';
 import 'package:ecommerce_user_side/views/search_screen/view/search_screen.dart';
 import 'package:ecommerce_user_side/views/splash/splash.dart';
+import 'package:ecommerce_user_side/views/wishlist/view/wishlist_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,7 @@ class RouteGenerator {
   static const addressScreen = "addressScreen";
   static const confirmOrderScreen = "confirmOrderScreen";
   static const orderScreen = "orderScreen";
+  static const wislistScreen = "wishlistScreen";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
@@ -82,6 +84,8 @@ class RouteGenerator {
             ));
       case orderScreen:
         return buildRoute(settings, const OrdersScreen());
+      case wislistScreen:
+        return buildRoute(settings, const WishlistScreen());
       default:
         return buildRoute(settings, const SplashScreen());
     }

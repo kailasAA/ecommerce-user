@@ -83,28 +83,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               10.verticalSpace,
-              // InkWell(
-              //   onTap: () {},
-              //   child: SimpleButton(
-              //     borderRadius: 25,
-              //     height: 70.h,
-              //     buttonColor: ColorPallette.blackColor,
-              //     childWidget: Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: [
-              //         Icon(
-              //           Icons.favorite_outlined,
-              //           color: ColorPallette.whiteColor,
-              //         ),
-              //         10.horizontalSpace,
-              //         Text("Wishlist",
-              //             style: FontPallette.headingStyle
-              //                 .copyWith(color: ColorPallette.whiteColor)),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // 10.verticalSpace,
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, RouteGenerator.wislistScreen);
+                },
+                child: SimpleButton(
+                  borderRadius: 25,
+                  height: 70.h,
+                  buttonColor: ColorPallette.blackColor,
+                  childWidget: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.favorite_outlined,
+                        color: ColorPallette.whiteColor,
+                      ),
+                      10.horizontalSpace,
+                      Text("Wishlist",
+                          style: FontPallette.headingStyle
+                              .copyWith(color: ColorPallette.whiteColor)),
+                    ],
+                  ),
+                ),
+              ),
+              10.verticalSpace,
               InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, RouteGenerator.addressScreen);
@@ -137,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap: () {
                       loginProvider.logOut();
                       Navigator.pushReplacementNamed(
-                          context, RouteGenerator.loginScreen);
+                          context, RouteGenerator.loginScreen);    
                       mainScreenProvider.reset();
                     },
                   );

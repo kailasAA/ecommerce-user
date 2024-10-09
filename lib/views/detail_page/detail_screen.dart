@@ -84,8 +84,8 @@ class _DetailScreenState extends State<DetailScreen> {
               ? const LoadingAnimation()
               : ListView(
                   children: [
-                     ImageSlider(
-                      productId: widget.productDetailArguments.product.id??"",
+                    ImageSlider(
+                      productId: widget.productDetailArguments.product.id ?? "",
                       user: user,
                     ),
                     20.verticalSpace,
@@ -161,7 +161,7 @@ class AddToCartButton extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               context.read<MainScreenProvider>().updateIndex(2);
-              context.read<MainScreenProvider>().gotoCartScreen();
+              context.read<MainScreenProvider>().navigateToCartScreen();
               Navigator.popUntil(context, (route) {
                 print(route.settings.name);
                 return route.settings.name == RouteGenerator.authScreen;

@@ -12,19 +12,38 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  late PageController pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+    context.read<MainScreenProvider>().pageController = pageController;
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final mainscreenProvider = context.read<MainScreenProvider>();
-    // final PageController pageController = PageController();
+
     List<String> icons = [
       Assets.home1SvgrepoCom,
       Assets.rotateSvgrepoCom,
       Assets.shoppingCartSvgrepoCom,
       Assets.profileCircleSvgrepoCom
-      // Assets.,
     ];
     List<String> bottomnavText = ["Home", "Categories", "Cart", "Profile"];
 
@@ -34,6 +53,7 @@ class MainScreen extends StatelessWidget {
       const CartScreen(),
       const ProfileScreen()
     ];
+
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) async {
@@ -44,16 +64,12 @@ class MainScreen extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: ColorPallette.scaffoldBgColor,
-        body: Selector<MainScreenProvider, int>(
-          selector: (p0, p1) => p1.selectedIndex,
-          builder: (context, value, child) {
-            return PageView(
-                controller: context.read<MainScreenProvider>().pageController,
-                onPageChanged: (value) {
-                  mainscreenProvider.updateIndex(value);
-                },
-                children: screenList);
+        body: PageView(
+          controller: context.read<MainScreenProvider>().pageController,
+          onPageChanged: (value) {
+            mainscreenProvider.updateIndex(value); 
           },
+          children: screenList,
         ),
         bottomNavigationBar: Selector<MainScreenProvider, int>(
           selector: (_, mainScreenProvider) => mainScreenProvider.selectedIndex,
@@ -66,17 +82,15 @@ class MainScreen extends StatelessWidget {
               selectedLabelStyle:
                   FontPallette.headingStyle.copyWith(fontSize: 13.sp),
               showUnselectedLabels: false,
-              currentIndex: value,
+              currentIndex: value, // Use selectedIndex from provider
               iconSize: 20,
               selectedFontSize: 12,
               elevation: 0,
               selectedItemColor: ColorPallette.blackColor,
               unselectedItemColor: ColorPallette.greyColor,
-              onTap: (value) {
-                mainscreenProvider.updateIndex(value);
-                context.read<MainScreenProvider>().pageController.jumpToPage(
-                      value,
-                    );
+              onTap: (val) {
+                mainscreenProvider.updateIndex(val);
+                context.read<MainScreenProvider>().pageController?.jumpToPage(val);
               },
               items: List.generate(
                 bottomnavText.length,

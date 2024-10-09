@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class MainScreenProvider extends ChangeNotifier {
   int selectedIndex = 0;
-  final PageController pageController = PageController();
+  PageController? pageController;
 
-  void gotoCartScreen() {
-    print("go to cart called");
-    pageController.jumpToPage(2);
+  void navigateToCartScreen() {
+    selectedIndex = 2;
+    pageController?.jumpToPage(2);
+    notifyListeners();
   }
 
   void updateIndex(int index) {

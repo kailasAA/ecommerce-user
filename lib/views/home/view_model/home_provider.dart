@@ -19,11 +19,12 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
 // to get all the categories
   Future<void> getCategories() async {
+    isLoading = true;
+    notifyListeners();
     try {
-      isLoading = true;
-      categoryList = [];
       var data = await firestore.collection("categories").get();
       var list = data.docs;
       final categories = list.map(
@@ -45,7 +46,7 @@ class HomeProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      categoryProducts = [];
+      // categoryProducts = [];
 
       var data = await firestore
           .collection("products")
@@ -70,8 +71,9 @@ class HomeProvider extends ChangeNotifier {
 
 // to get all the products
   Future<void> getAllProducts() async {
+    isLoading = true;
+    notifyListeners();
     try {
-      isLoading = true;
       var data = await firestore.collection("products").get();
       var list = data.docs;
       productList = list
@@ -91,8 +93,9 @@ class HomeProvider extends ChangeNotifier {
 
 // to get all the variants
   Future<void> getAllVariants() async {
+    isLoading = true;
+    notifyListeners();
     try {
-      isLoading = true;
       var data = await firestore.collection("variants").get();
       final list = data.docs;
       final allVariants = list.map(
@@ -100,7 +103,7 @@ class HomeProvider extends ChangeNotifier {
           return Variant.fromMap(variant.data());
         },
       ).toList();
-      variantList = [];
+      // variantList = [];
       variantList = allVariants;
       isLoading = false;
       notifyListeners();
@@ -114,9 +117,9 @@ class HomeProvider extends ChangeNotifier {
 
   // to get all the sizes
   Future<void> getAllSizes() async {
+    isLoading = true;
+    notifyListeners();
     try {
-      isLoading = true;
-      // notifyListeners();
       final data = await firestore.collection("sizes").get();
       final sizeData = data.docs;
       final allSizes = sizeData.map(
@@ -125,7 +128,7 @@ class HomeProvider extends ChangeNotifier {
         },
       ).toList();
 
-      sizeList = [];
+      // sizeList = [];
       sizeList = allSizes;
       isLoading = false;
       notifyListeners();

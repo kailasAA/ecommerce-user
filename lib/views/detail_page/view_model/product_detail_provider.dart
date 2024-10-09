@@ -4,7 +4,6 @@ import 'package:ecommerce_user_side/common/common_functions.dart/show_toast.dart
 import 'package:ecommerce_user_side/models/product_model.dart';
 import 'package:ecommerce_user_side/models/size_model.dart';
 import 'package:ecommerce_user_side/models/variant_model.dart';
-import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
