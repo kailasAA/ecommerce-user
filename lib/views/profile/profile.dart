@@ -7,6 +7,7 @@ import 'package:ecommerce_user_side/views/auth/login/view_model/login_provider.d
 import 'package:ecommerce_user_side/views/main_screen/viemodel/main_screen_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
+    SchedulerBinding.instance.addPostFrameCallback(
       (timeStamp) {
         context.read<LoginProvider>().reset();
       },

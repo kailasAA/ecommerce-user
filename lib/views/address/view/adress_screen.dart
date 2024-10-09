@@ -8,6 +8,7 @@ import 'package:ecommerce_user_side/views/address/view_model/address_provider.da
 import 'package:ecommerce_user_side/views/auth/login/view/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
@@ -24,7 +25,7 @@ class _AdressScreenState extends State<AdressScreen> {
   @override
   void initState() {
     user = FirebaseAuth.instance.currentUser;
-    WidgetsBinding.instance.addPostFrameCallback(
+    SchedulerBinding.instance.addPostFrameCallback(
       (timeStamp) {
         context.read<AddressProvider>().getAddress(user?.uid ?? "");
       },

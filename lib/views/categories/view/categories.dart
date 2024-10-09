@@ -5,6 +5,7 @@ import 'package:ecommerce_user_side/utils/font_pallette.dart';
 import 'package:ecommerce_user_side/views/categories/view/widgets/catgeory_listview.dart';
 import 'package:ecommerce_user_side/views/categories/view_model.dart/catgeory_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,11 @@ class CategoriesScreen extends StatefulWidget {
 class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   void initState() {
-    context.read<CatgeoryProvider>().getCategories();
+    SchedulerBinding.instance.addPostFrameCallback(
+      (_) {
+        context.read<CatgeoryProvider>().getCategories();
+      },
+    );
     super.initState();
   }
 
@@ -48,7 +53,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               : CategoryListview(categoryList: categoryList);
         },
       ),
-        
-      );
+    );
   }
 }

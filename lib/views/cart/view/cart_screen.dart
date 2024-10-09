@@ -10,6 +10,7 @@ import 'package:ecommerce_user_side/views/auth/login/view/login_screen.dart';
 import 'package:ecommerce_user_side/views/cart/view_model/cart_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
@@ -27,7 +28,7 @@ class _CartScreenState extends State<CartScreen> {
   void initState() {
     user = FirebaseAuth.instance.currentUser;
     context.read<CartProvider>().getCartItems(userId: user?.uid ?? "");
-    WidgetsBinding.instance.addPostFrameCallback(
+    SchedulerBinding.instance.addPostFrameCallback(
       (timeStamp) {},
     );
     super.initState();

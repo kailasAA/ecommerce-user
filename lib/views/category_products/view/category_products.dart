@@ -8,6 +8,7 @@ import 'package:ecommerce_user_side/utils/font_pallette.dart';
 import 'package:ecommerce_user_side/views/home/view/widgets/home_products_listview.dart';
 import 'package:ecommerce_user_side/views/home/view_model/home_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
@@ -26,7 +27,7 @@ class CategoryProducts extends StatefulWidget {
 class _CategoryProductsState extends State<CategoryProducts> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
+    SchedulerBinding.instance.addPostFrameCallback(
       (timeStamp) {
         context
             .read<HomeProvider>()

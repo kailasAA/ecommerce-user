@@ -6,6 +6,7 @@ import 'package:ecommerce_user_side/views/confirm_order_screen/view_model/order_
 import 'package:ecommerce_user_side/views/orders/view/widgets/order_listview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
@@ -21,7 +22,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   void initState() {
     user = FirebaseAuth.instance.currentUser;
-    WidgetsBinding.instance.addPostFrameCallback(
+    SchedulerBinding.instance.addPostFrameCallback(
       (_) {
         context.read<OrderProvider>().getOrders(userId: user?.uid ?? "");
       },

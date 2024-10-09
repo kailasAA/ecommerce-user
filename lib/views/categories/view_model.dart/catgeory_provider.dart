@@ -25,13 +25,13 @@ class CatgeoryProvider extends ChangeNotifier {
     ).toList();
   }
 
-
   // to  get categories
 
   Future<void> getCategories() async {
-    categoryList = [];
+    getCategoryLoading = true;
+    notifyListeners();
+    // categoryList = [];
     try {
-      getCategoryLoading = true;
       var data = await _firestore.collection("categories").get();
       var list = data.docs;
       categoryList = convertToCategory(list);
@@ -43,7 +43,6 @@ class CatgeoryProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 
   // to change the selected category
 

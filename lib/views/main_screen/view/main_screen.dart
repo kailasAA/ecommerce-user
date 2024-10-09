@@ -82,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
               selectedLabelStyle:
                   FontPallette.headingStyle.copyWith(fontSize: 13.sp),
               showUnselectedLabels: false,
-              currentIndex: value, // Use selectedIndex from provider
+              currentIndex: value, 
               iconSize: 20,
               selectedFontSize: 12,
               elevation: 0,

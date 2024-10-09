@@ -176,25 +176,14 @@ class ProductTile extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Price : ${sizes?[0].sellingPrice ?? ""}",
+                                "Price : ₹${sizes?[0].sellingPrice ?? ""}",
                                 style: FontPallette.headingStyle
                                     .copyWith(fontSize: 13.sp),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Size : ${sizes?[0].size ?? ""}",
-                                    style: FontPallette.headingStyle
-                                        .copyWith(fontSize: 13.sp),
-                                  ),
-                                  Text(
-                                    "Stock : ${sizes?[0].stock ?? ""}",
-                                    style: FontPallette.headingStyle
-                                        .copyWith(fontSize: 13.sp),
-                                  ),
-                                ],
+                              Text(
+                                "Size : ${sizes?[0].size ?? ""}",
+                                style: FontPallette.headingStyle
+                                    .copyWith(fontSize: 13.sp),
                               ),
                             ],
                           ),

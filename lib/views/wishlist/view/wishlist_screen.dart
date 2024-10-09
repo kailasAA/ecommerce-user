@@ -9,6 +9,7 @@ import 'package:ecommerce_user_side/views/home/view_model/home_provider.dart';
 import 'package:ecommerce_user_side/views/search_screen/view/search_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
@@ -25,7 +26,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
   @override
   void initState() {
     user = FirebaseAuth.instance.currentUser;
-    WidgetsBinding.instance.addPostFrameCallback(
+    SchedulerBinding.instance.addPostFrameCallback(
       (_) {
         context
             .read<ProductDetailProvider>()

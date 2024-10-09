@@ -16,6 +16,7 @@ import 'package:ecommerce_user_side/views/detail_page/widgets/product_detail.dar
 import 'package:ecommerce_user_side/views/main_screen/viemodel/main_screen_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -49,7 +50,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     user = FirebaseAuth.instance.currentUser;
-    WidgetsBinding.instance.addPostFrameCallback(
+    SchedulerBinding.instance.addPostFrameCallback(
       (timeStamp) {
         getSizesAndVariants();
         cartProvider.getCartItems(userId: user?.uid ?? "");

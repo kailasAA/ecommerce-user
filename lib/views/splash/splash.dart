@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: double.infinity,
               child: Center(
                 child: Text(
-                  "Fashion",
+                  "Fashion Store",
                   style: FontPallette.headingStyle,
                 ),
               ))),
