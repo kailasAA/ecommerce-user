@@ -51,7 +51,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
             style: FontPallette.headingStyle,
           ),
         ),
-        body: Selector<HomeProvider, bool>(
+        body: Selector<ProductDetailProvider, bool>(
           builder: (context, isLoading, child) {
             return isLoading
                 ? const LoadingAnimation()
@@ -92,7 +92,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                         }),
                   ]);
           },
-          selector: (p0, p1) => p1.isLoading,
+          selector: (p0, p1) => p1.wishListLoading,
         ));
   }
 }

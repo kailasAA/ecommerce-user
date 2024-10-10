@@ -18,6 +18,7 @@ class ProductDetailProvider extends ChangeNotifier {
   List<SizeModel> variantSizes = [];
   SizeModel? selectedSize;
   List<String> wishListIds = [];
+  bool wishListLoading = false;
 
 // to get the product details
   Future<void> getProductDetails(String productId) async {
@@ -130,6 +131,8 @@ class ProductDetailProvider extends ChangeNotifier {
   }
 
   Future<void> addToWishlist(String userId, String productId) async {
+    wishListLoading = true;
+    notifyListeners();
     try {
       final wishlistReference = firestore
           .collection('users')
@@ -159,6 +162,8 @@ class ProductDetailProvider extends ChangeNotifier {
       }
       getWishlistItems(userId: userId);
     } catch (e) {
+      wishListLoading = false;
+      notifyListeners();
       print(e.toString());
     }
   }
@@ -166,6 +171,8 @@ class ProductDetailProvider extends ChangeNotifier {
   Future<void> getWishlistItems({
     required String userId,
   }) async {
+    wishListLoading = true;
+    notifyListeners();
     try {
       final doc = await firestore
           .collection('users')
@@ -178,10 +185,13 @@ class ProductDetailProvider extends ChangeNotifier {
         List<String> productIds =
             List<String>.from(doc.data()?['productIds'] ?? []);
         wishListIds = productIds;
+        wishListLoading = false;
         notifyListeners();
         print("wishlist  fetched succesfully $wishListIds");
       }
     } catch (e) {
+      wishListLoading = false;
+      notifyListeners();
       showToast("Error fetching wishlist: $e", toastColor: Colors.red);
     }
   }

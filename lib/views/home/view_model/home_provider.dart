@@ -19,6 +19,10 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void resetProducts() {
+    searchedProducts = productList;
+    notifyListeners();
+  }
 
 // to get all the categories
   Future<void> getCategories() async {

@@ -224,8 +224,14 @@ class _OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
 Widget buildTotalPrice(int totalPrice) {
   return SliverToBoxAdapter(
     child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         20.verticalSpace,
+        Text(
+          "Payement Method: COD",
+          style: FontPallette.headingStyle.copyWith(fontSize: 13.sp),
+        ),
+        10.verticalSpace,
         Row(
           children: [
             Text(

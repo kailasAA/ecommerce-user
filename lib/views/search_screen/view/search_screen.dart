@@ -25,6 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback(
       (timeStamp) {
+        context.read<HomeProvider>().resetProducts();
         context
             .read<HomeProvider>()
             .changeSearchedProducts(widget.searchScreenArguments.productList);
@@ -44,7 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
         body: CustomScrollView(
           slivers: [
             Selector<HomeProvider, List<ProductModel>>(
-                selector: (p0, p1) => p1.searchedProducts,
+                selector: (p0, p1) => p1.productList,
                 builder: (context, value, child) {
                   final productList = value;
                   return SliverToBoxAdapter(
@@ -67,9 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 .read<HomeProvider>()
                                 .changeSearchedProducts(searchedList);
                           } else {
-                            context
-                                .read<HomeProvider>()
-                                .changeSearchedProducts(productList);
+                            context.read<HomeProvider>().resetProducts();
                           }
                         },
                         textEditingController: searchController,
@@ -111,8 +110,6 @@ class _SearchScreenState extends State<SearchScreen> {
         ));
   }
 }
-
-
 
 class ProductGrid extends StatelessWidget {
   const ProductGrid({

@@ -1,3 +1,4 @@
+import 'package:ecommerce_user_side/common/common_functions.dart/show_toast.dart';
 import 'package:ecommerce_user_side/common_widgets/progress_indicators.dart';
 import 'package:ecommerce_user_side/common_widgets/textform_field.dart';
 import 'package:ecommerce_user_side/route/route_generator.dart';
@@ -65,15 +66,21 @@ class LoginScreen extends StatelessWidget {
                         40.verticalSpace,
                         InkWell(
                           onTap: () async {
-                            try {
-                              await lognProvider.loginWithPasswordAndEmail(
-                                  emailController.text,
-                                  passwordController.text,
-                                  context);
-                              emailController.clear();
-                              passwordController.clear();
-                            } catch (e) {
-                              print(e.toString());
+                            if (emailController.text.isNotEmpty &&
+                                passwordController.text.isNotEmpty) {
+                              try {
+                                await lognProvider.loginWithPasswordAndEmail(
+                                    emailController.text,
+                                    passwordController.text,
+                                    context);
+                                emailController.clear();
+                                passwordController.clear();
+                              } catch (e) {
+                                print(e.toString());
+                              }
+                            } else {
+                              showToast("Please fill all the fields",
+                                  toastColor: ColorPallette.redColor);
                             }
                           },
                           child: SimpleButton(

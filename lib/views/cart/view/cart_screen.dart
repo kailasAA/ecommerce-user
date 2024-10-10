@@ -83,7 +83,6 @@ class _CartScreenState extends State<CartScreen> {
                                 padding: EdgeInsets.all(10.r),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(12.w),
@@ -95,117 +94,136 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                     ),
                                     10.horizontalSpace,
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          cartItem.productName ?? '',
-                                          style: FontPallette.headingStyle
-                                              .copyWith(
-                                                  fontSize: 14.sp,
-                                                  color:
-                                                      ColorPallette.whiteColor),
-                                        ),
-                                        Text(
-                                          "Color: ${cartItem.variantColor ?? ""}",
-                                          style: FontPallette.headingStyle
-                                              .copyWith(
-                                                  fontSize: 13.sp,
-                                                  color:
-                                                      ColorPallette.whiteColor),
-                                        ),
-                                        Text(
-                                          "Size: ${cartItem.size}",
-                                          style: FontPallette.headingStyle
-                                              .copyWith(
-                                                  fontSize: 13.sp,
-                                                  color:
-                                                      ColorPallette.whiteColor),
-                                        ),
-                                        Text(
-                                          "₹${cartItem.price}",
-                                          style: FontPallette.headingStyle
-                                              .copyWith(
-                                                  fontSize: 13.sp,
-                                                  color:
-                                                      ColorPallette.whiteColor),
-                                        ),
-                                      ],
-                                    ),
+                                    Flexible(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                cartItem.productName ?? '',
+                                                style: FontPallette.headingStyle
+                                                    .copyWith(
+                                                        fontSize: 14.sp,
+                                                        color: ColorPallette
+                                                            .whiteColor),
+                                              ),
+                                              Text(
+                                                "Color: ${cartItem.variantColor ?? ""}",
+                                                style: FontPallette.headingStyle
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        color: ColorPallette
+                                                            .whiteColor),
+                                              ),
+                                              Text(
+                                                "Size: ${cartItem.size}",
+                                                style: FontPallette.headingStyle
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        color: ColorPallette
+                                                            .whiteColor),
+                                              ),
+                                              Text(
+                                                "₹${cartItem.price}",
+                                                style: FontPallette.headingStyle
+                                                    .copyWith(
+                                                        fontSize: 12.sp,
+                                                        color: ColorPallette
+                                                            .whiteColor),
+                                              ),
+                                            ],
+                                          ),
 
-                                    // Remove Button
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            confirmationDialog(
-                                                onTap: () {
-                                                  Navigator.pop(context);
-                                                  context
-                                                      .read<CartProvider>()
-                                                      .removeItem(
-                                                          userId:
-                                                              user?.uid ?? '',
-                                                          cartItem: cartItem);
+                                          // Remove Button
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  confirmationDialog(
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                        context
+                                                            .read<
+                                                                CartProvider>()
+                                                            .removeItem(
+                                                                userId:
+                                                                    user?.uid ??
+                                                                        '',
+                                                                cartItem:
+                                                                    cartItem);
+                                                      },
+                                                      context: context,
+                                                      content:
+                                                          "Do you want remove this ?");
                                                 },
-                                                context: context,
-                                                content:
-                                                    "Do you want remove this ?");
-                                          },
-                                          icon: const Icon(Icons.delete,
-                                              color: Colors.white),
-                                        ),
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                context
-                                                    .read<CartProvider>()
-                                                    .decreaseQuantity(
-                                                        userId: user?.uid ?? '',
-                                                        cartItem: cartItem);
-                                              },
-                                              icon: Icon(
-                                                Icons.remove_circle,
-                                                color: ColorPallette.whiteColor,
-                                                size: 35,
+                                                icon: const Icon(Icons.delete,
+                                                    color: Colors.white),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 25,
-                                              width: 25,
-                                              child: Center(
-                                                child: Text(
-                                                  '${cartItem.quantity}',
-                                                  style: FontPallette
-                                                      .headingStyle
-                                                      .copyWith(
-                                                          fontSize: 16.sp,
-                                                          color: ColorPallette
-                                                              .whiteColor),
-                                                ),
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                context
-                                                    .read<CartProvider>()
-                                                    .increaseQuantity(
-                                                        userId: user?.uid ?? '',
-                                                        cartItem: cartItem);
-                                              },
-                                              icon: Icon(
-                                                Icons.add_circle,
-                                                size: 35,
-                                                color: ColorPallette.whiteColor,
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
+                                              Row(
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      context
+                                                          .read<CartProvider>()
+                                                          .decreaseQuantity(
+                                                              userId:
+                                                                  user?.uid ??
+                                                                      '',
+                                                              cartItem:
+                                                                  cartItem);
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.remove_circle,
+                                                      color: ColorPallette
+                                                          .whiteColor,
+                                                      size: 30,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 25,
+                                                    width: 25,
+                                                    child: Center(
+                                                      child: Text(
+                                                        '${cartItem.quantity}',
+                                                        style: FontPallette
+                                                            .headingStyle
+                                                            .copyWith(
+                                                                fontSize: 16.sp,
+                                                                color: ColorPallette
+                                                                    .whiteColor),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      context
+                                                          .read<CartProvider>()
+                                                          .increaseQuantity(
+                                                              userId:
+                                                                  user?.uid ??
+                                                                      '',
+                                                              cartItem:
+                                                                  cartItem);
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.add_circle,
+                                                      size: 30,
+                                                      color: ColorPallette
+                                                          .whiteColor,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

@@ -5,8 +5,10 @@ import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/views/detail_page/view_model/product_detail_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:tuple/tuple.dart';
 
 class ImageSlider extends StatefulWidget {
   const ImageSlider({
@@ -23,9 +25,9 @@ class ImageSlider extends StatefulWidget {
 class _ImageSliderState extends State<ImageSlider> {
   @override
   void initState() {
-    context
-        .read<ProductDetailProvider>()
-        .getWishlistItems(userId: widget.user?.uid ?? "");
+    SchedulerBinding.instance.addPostFrameCallback(
+      (_) {},
+    );
 
     super.initState();
   }
@@ -131,23 +133,32 @@ class _ImageSliderState extends State<ImageSlider> {
         Positioned(
             top: 15.h,
             right: 15.w,
-            child: Selector<ProductDetailProvider, List<String>>(
-              selector: (p0, p1) => p1.wishListIds,
+            child: Selector<ProductDetailProvider, Tuple2<List<String>, bool>>(
+              selector: (p0, p1) => Tuple2(p1.wishListIds, p1.wishListLoading),
               builder: (context, value, child) {
-                final wishListIds = value;
-                return IconButton(
-                    onPressed: () {
-                      print("add to wishlist called");
-                      context.read<ProductDetailProvider>().addToWishlist(
-                          widget.user?.uid ?? "", widget.productId);
-                    },
-                    icon: Icon(
-                      wishListIds.contains(widget.productId)
-                          ? Icons.favorite_rounded
-                          : Icons.favorite_outline_sharp,
-                      color: ColorPallette.redColor,
-                      size: 30.r,
-                    ));
+                final wishListIds = value.item1;
+                final isWishlistLoading = value.item2;
+                return isWishlistLoading
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                            child: LoadingAnimation(
+                          size: 25.r,
+                        )),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          print("add to wishlist called");
+                          context.read<ProductDetailProvider>().addToWishlist(
+                              widget.user?.uid ?? "", widget.productId);
+                        },
+                        icon: Icon(
+                          wishListIds.contains(widget.productId)
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_outline_sharp,
+                          color: ColorPallette.redColor,
+                          size: 30.r,
+                        ));
               },
             ))
       ],

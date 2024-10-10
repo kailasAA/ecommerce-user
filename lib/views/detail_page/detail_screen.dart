@@ -53,6 +53,9 @@ class _DetailScreenState extends State<DetailScreen> {
     SchedulerBinding.instance.addPostFrameCallback(
       (timeStamp) {
         getSizesAndVariants();
+        context
+            .read<ProductDetailProvider>()
+            .getWishlistItems(userId: user?.uid ?? "");
         cartProvider.getCartItems(userId: user?.uid ?? "");
       },
     );
@@ -163,8 +166,8 @@ class AddToCartButton extends StatelessWidget {
             onTap: () {
               context.read<MainScreenProvider>().updateIndex(2);
               context.read<MainScreenProvider>().navigateToCartScreen();
+              // Navigator.pop(context);
               Navigator.popUntil(context, (route) {
-                print(route.settings.name);
                 return route.settings.name == RouteGenerator.authScreen;
               });
             },

@@ -1,3 +1,4 @@
+import 'package:ecommerce_user_side/common/common_functions.dart/show_toast.dart';
 import 'package:ecommerce_user_side/common_widgets/progress_indicators.dart';
 import 'package:ecommerce_user_side/common_widgets/textform_field.dart';
 import 'package:ecommerce_user_side/route/route_generator.dart';
@@ -84,18 +85,31 @@ class SignUpScreen extends StatelessWidget {
                         40.verticalSpace,
                         InkWell(
                           onTap: () async {
-                            try {
-                              await signUpProvider.signUpWithEmailAndPassword(
-                                  emailController.text,
-                                  passwordController.text,
-                                  context);
-                              emailController.clear();
-                              passwordController.clear();
-                              confirmPasswordController.clear();
-                              // Navigator.pushNamed(
-                              //     context, RouteGenerator.mainScreen);
-                            } catch (e) {
-                              print(e.toString());
+                            if (passwordController.text ==
+                                    confirmPasswordController.text &&
+                                confirmPasswordController.text.isNotEmpty &&
+                                passwordController.text.isNotEmpty &&
+                                emailController.text.isNotEmpty) {
+                              try {
+                                await signUpProvider.signUpWithEmailAndPassword(
+                                    emailController.text,
+                                    passwordController.text,
+                                    context);
+                                emailController.clear();
+                                passwordController.clear();
+                                confirmPasswordController.clear();
+                                // Navigator.pushNamed(
+                                //     context, RouteGenerator.mainScreen);
+                              } catch (e) {
+                                print(e.toString());
+                              }
+                            } else if (passwordController.text !=
+                                confirmPasswordController.text) {
+                              showToast("Passwords doesn't match",
+                                  toastColor: ColorPallette.redColor);
+                            } else {
+                              showToast("Please fill all the fields",
+                                  toastColor: ColorPallette.redColor);
                             }
                           },
                           child: SimpleButton(
