@@ -1,4 +1,5 @@
 import 'package:ecommerce_user_side/common/common_functions.dart/dialog_box.dart';
+import 'package:ecommerce_user_side/gen/assets.gen.dart';
 import 'package:ecommerce_user_side/route/route_generator.dart';
 import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/utils/font_pallette.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -50,6 +52,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ListView(
         padding: EdgeInsets.all(15.r),
         children: [
+          10.verticalSpace,
+          SizedBox(
+            height: 130.h,
+            child: Lottie.asset(Assets.profile),
+          ),
+          20.verticalSpace,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -140,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap: () {
                       loginProvider.logOut();
                       Navigator.pushReplacementNamed(
-                          context, RouteGenerator.loginScreen);    
+                          context, RouteGenerator.loginScreen);
                       mainScreenProvider.reset();
                     },
                   );

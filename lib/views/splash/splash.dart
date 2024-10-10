@@ -1,8 +1,10 @@
+import 'package:ecommerce_user_side/gen/assets.gen.dart';
 import 'package:ecommerce_user_side/route/route_generator.dart';
 import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/utils/font_pallette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -32,9 +34,17 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 300.h,
               width: double.infinity,
               child: Center(
-                child: Text(
-                  "Fashion Store",
-                  style: FontPallette.headingStyle,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 150.h,
+                      child: Lottie.asset(Assets.splash),
+                    ),
+                    Text(
+                      "Fashion Store",
+                      style: FontPallette.headingStyle,
+                    ),
+                  ],
                 ),
               ))),
     );

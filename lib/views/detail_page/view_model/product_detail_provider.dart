@@ -189,6 +189,8 @@ class ProductDetailProvider extends ChangeNotifier {
         notifyListeners();
         print("wishlist  fetched succesfully $wishListIds");
       }
+      wishListLoading = false;
+      notifyListeners();
     } catch (e) {
       wishListLoading = false;
       notifyListeners();

@@ -1,12 +1,14 @@
 import 'package:ecommerce_user_side/common/common_functions.dart/show_toast.dart';
 import 'package:ecommerce_user_side/common_widgets/progress_indicators.dart';
 import 'package:ecommerce_user_side/common_widgets/textform_field.dart';
+import 'package:ecommerce_user_side/gen/assets.gen.dart';
 import 'package:ecommerce_user_side/route/route_generator.dart';
 import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/utils/font_pallette.dart';
 import 'package:ecommerce_user_side/views/auth/login/view_model/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
@@ -38,7 +40,10 @@ class LoginScreen extends StatelessWidget {
                 : ListView(
                     padding: EdgeInsets.symmetric(horizontal: 15.r),
                     children: [
-                        230.verticalSpace,
+                        SizedBox(
+                          height: 250.h,
+                          child: Lottie.asset(Assets.login),
+                        ),
                         NuemorphicTextField(
                           textEditingController: emailController,
                           headingText: "Email",

@@ -6,9 +6,7 @@ import 'package:ecommerce_user_side/views/categories/view/widgets/catgeory_listv
 import 'package:ecommerce_user_side/views/categories/view_model.dart/catgeory_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
 import 'package:tuple/tuple.dart';
 
 class CategoriesScreen extends StatefulWidget {
@@ -45,11 +43,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           final isLoading = value.item1;
           final categoryList = value.item2;
           return isLoading
-              ? Center(
-                  child: SizedBox(
-                      height: 30.h,
-                      width: 30.w,
-                      child: const LoadingAnimationStaggeredDotsWave()))
+              ? const LoadingAnimation()
               : CategoryListview(categoryList: categoryList);
         },
       ),

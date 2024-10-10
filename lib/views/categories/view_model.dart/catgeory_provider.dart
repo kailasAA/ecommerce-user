@@ -30,7 +30,6 @@ class CatgeoryProvider extends ChangeNotifier {
   Future<void> getCategories() async {
     getCategoryLoading = true;
     notifyListeners();
-    // categoryList = [];
     try {
       var data = await _firestore.collection("categories").get();
       var list = data.docs;

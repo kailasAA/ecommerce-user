@@ -37,6 +37,7 @@ class Assets {
   static const String home2SvgrepoCom = 'assets/home-2-svgrepo-com.svg';
   static const String labelPriceSvgrepoCom =
       'assets/label-price-svgrepo-com.svg';
+  static const String login = 'assets/login.json';
   static const String noteNotepadSvgrepoCom =
       'assets/note-notepad-svgrepo-com.svg';
   static const AssetGenImage pexelsAlexandr =
@@ -48,6 +49,7 @@ class Assets {
       'assets/products-product-svgrepo-com.svg';
   static const String profileCircleSvgrepoCom =
       'assets/profile-circle-svgrepo-com.svg';
+  static const String profile = 'assets/profile.json';
   static const String receiptEditSvgrepoCom =
       'assets/receipt-edit-svgrepo-com.svg';
   static const String refreshRightSquareSvgrepoCom =
@@ -60,6 +62,8 @@ class Assets {
       'assets/shopping-bag-svgrepo-com.svg';
   static const String shoppingCartSvgrepoCom =
       'assets/shopping-cart-svgrepo-com.svg';
+  static const String signup = 'assets/signup.json';
+  static const String splash = 'assets/splash.json';
   static const String supermarketGiftGiftSvgrepoCom =
       'assets/supermarket-gift-gift-svgrepo-com.svg';
   static const String supermarketTagSvgrepoCom =

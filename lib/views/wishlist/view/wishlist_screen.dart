@@ -75,7 +75,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
                           return productList.isEmpty
                               ? SliverToBoxAdapter(
                                   child: SizedBox(
-                                    height: 350.h,
+                                    height:
+                                        MediaQuery.of(context).size.height * .9,
                                     child: Center(
                                       child: Text(
                                         "No Product Found",

@@ -1,3 +1,4 @@
+import 'package:ecommerce_user_side/common_widgets/progress_indicators.dart';
 import 'package:ecommerce_user_side/models/cart_model.dart';
 import 'package:ecommerce_user_side/models/order_model.dart';
 import 'package:ecommerce_user_side/route/route_generator.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce_user_side/views/cart/view_model/cart_provider.dart';
 import 'package:ecommerce_user_side/views/confirm_order_screen/view_model/order_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
@@ -34,7 +36,7 @@ class _OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       context.read<AddressProvider>().getAddress(user?.uid ?? "");
     });
     calculateTotalPrice();
@@ -58,16 +60,25 @@ class _OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
         centerTitle: true,
         title: Text('Order Confirmation', style: FontPallette.headingStyle),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(15.r),
-        child: CustomScrollView(
-          slivers: [
-            buildCartItemsList(cartList),
-            buildAddressList(),
-            buildTotalPrice(totalPrice),
-            buildConfirmOrderButton(cartList, totalPrice),
-          ],
-        ),
+      body: Selector<AddressProvider, bool>(
+        selector: (p0, p1) => p1.isLoading,
+        builder: (context, value, child) {
+          final isLoading = value;
+
+          return isLoading
+              ? const LoadingAnimation()
+              : Padding(
+                  padding: EdgeInsets.all(15.r),
+                  child: CustomScrollView(
+                    slivers: [
+                      buildCartItemsList(cartList),
+                      buildAddressList(),
+                      buildTotalPrice(totalPrice),
+                      buildConfirmOrderButton(cartList, totalPrice),
+                    ],
+                  ),
+                );
+        },
       ),
     );
   }
