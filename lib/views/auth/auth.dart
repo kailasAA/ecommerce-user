@@ -10,9 +10,9 @@ class AuthCheck extends StatelessWidget {
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      return MainScreen();
+      return const MainScreen();
     } else {
-      return LoginScreen();
+      return const LoginScreen();
     }
   }
 }

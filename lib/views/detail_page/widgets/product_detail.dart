@@ -74,11 +74,14 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                       fontSize: 13.sp, color: ColorPallette.darkGreyColor),
                 ),
                 5.verticalSpace,
-                Text(
-                  "Discount Price : ₹${size?.discountPrice ?? "0"}",
-                  style: FontPallette.headingStyle.copyWith(
-                      fontSize: 13.sp, color: ColorPallette.darkGreyColor),
-                ),
+                size?.discountPrice != size?.sellingPrice
+                    ? Text(
+                        "Discount Price : ₹${size?.discountPrice ?? "0"}",
+                        style: FontPallette.headingStyle.copyWith(
+                            fontSize: 13.sp,
+                            color: ColorPallette.darkGreyColor),
+                      )
+                    : const SizedBox(),
                 5.verticalSpace,
                 size?.stock != "0"
                     ? Text(

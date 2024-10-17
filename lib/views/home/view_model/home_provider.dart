@@ -50,8 +50,6 @@ class HomeProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      // categoryProducts = [];
-
       var data = await firestore
           .collection("products")
           .where("category_id", isEqualTo: categoryId)
@@ -64,8 +62,6 @@ class HomeProvider extends ChangeNotifier {
           .toList();
       isLoading = false;
       notifyListeners();
-      print(categoryProducts);
-      print("product fetched successfully");
     } catch (e) {
       isLoading = false;
       notifyListeners();
@@ -87,7 +83,6 @@ class HomeProvider extends ChangeNotifier {
           .toList();
       isLoading = false;
       notifyListeners();
-      print("product fetched successfully");
     } catch (e) {
       isLoading = false;
       notifyListeners();
@@ -107,11 +102,9 @@ class HomeProvider extends ChangeNotifier {
           return Variant.fromMap(variant.data());
         },
       ).toList();
-      // variantList = [];
       variantList = allVariants;
       isLoading = false;
       notifyListeners();
-      print("variant detail fetched successfully");
     } catch (e) {
       isLoading = false;
       notifyListeners();
@@ -131,13 +124,10 @@ class HomeProvider extends ChangeNotifier {
           return SizeModel.fromMap(size.data());
         },
       ).toList();
-
-      // sizeList = [];
       sizeList = allSizes;
       isLoading = false;
       notifyListeners();
     } catch (e) {
-      print("size was not fetched $e");
       isLoading = false;
       notifyListeners();
     }

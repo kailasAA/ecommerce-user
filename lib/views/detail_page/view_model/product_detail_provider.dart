@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProductDetailProvider extends ChangeNotifier {
+  
   bool isLoading = false;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<XFile?> pickedXfileList = [];
@@ -19,6 +20,7 @@ class ProductDetailProvider extends ChangeNotifier {
   SizeModel? selectedSize;
   List<String> wishListIds = [];
   bool wishListLoading = false;
+
 
 // to get the product details
   Future<void> getProductDetails(String productId) async {
@@ -37,9 +39,9 @@ class ProductDetailProvider extends ChangeNotifier {
     }
   }
 
+
 // to get the all variants
   Future<bool> getVariants(String productId) async {
-    variantList = [];
     isLoading = true;
     notifyListeners();
     try {
@@ -59,7 +61,6 @@ class ProductDetailProvider extends ChangeNotifier {
       variant = variantList[0];
       isLoading = false;
       notifyListeners();
-      print("variant detail fetched successfully");
       return true;
     } catch (e) {
       isLoading = false;
@@ -68,6 +69,7 @@ class ProductDetailProvider extends ChangeNotifier {
       return false;
     }
   }
+
 
 // to get all the sizes
   Future<void> getSizes() async {
@@ -101,6 +103,7 @@ class ProductDetailProvider extends ChangeNotifier {
     }
   }
 
+
 // to get the variant details
   Future<void> getVariantDetails(
       String variantId, Variant? selectedVariant) async {
@@ -118,6 +121,7 @@ class ProductDetailProvider extends ChangeNotifier {
       print(e.toString());
     }
   }
+
 
 // to update the selected size
   Future<void> selectSize(SizeModel sizeModel) async {
@@ -187,7 +191,6 @@ class ProductDetailProvider extends ChangeNotifier {
         wishListIds = productIds;
         wishListLoading = false;
         notifyListeners();
-        print("wishlist  fetched succesfully $wishListIds");
       }
       wishListLoading = false;
       notifyListeners();
@@ -197,4 +200,5 @@ class ProductDetailProvider extends ChangeNotifier {
       showToast("Error fetching wishlist: $e", toastColor: Colors.red);
     }
   }
+
 }

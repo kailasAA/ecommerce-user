@@ -185,20 +185,40 @@ class _CartScreenState extends State<CartScreen> {
                                                       size: 30,
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    height: 25,
-                                                    width: 25,
-                                                    child: Center(
-                                                      child: Text(
-                                                        '${cartItem.quantity}',
-                                                        style: FontPallette
-                                                            .headingStyle
-                                                            .copyWith(
-                                                                fontSize: 16.sp,
-                                                                color: ColorPallette
-                                                                    .whiteColor),
-                                                      ),
-                                                    ),
+                                                  Selector<CartProvider,
+                                                      Tuple2<bool, String>>(
+                                                    selector: (p0, p1) => Tuple2(
+                                                        p1.isCartQuantityLoading,
+                                                        p1.updatingCartId),
+                                                    builder: (context, value,
+                                                        child) {
+                                                      final loading =
+                                                          value.item1;
+                                                      final id = value.item2;
+                                                      return SizedBox(
+                                                        height: 25.r,
+                                                        width: 25.r,
+                                                        child: Center(
+                                                          child: loading &&
+                                                                  id ==
+                                                                      cartItem
+                                                                          .sizeId
+                                                              ? LoadingAnimationStaggeredDotsWave(
+                                                                  size: 17.r,
+                                                                )
+                                                              : Text(
+                                                                  '${cartItem.quantity}',
+                                                                  style: FontPallette
+                                                                      .headingStyle
+                                                                      .copyWith(
+                                                                          fontSize: 16
+                                                                              .sp,
+                                                                          color:
+                                                                              ColorPallette.whiteColor),
+                                                                ),
+                                                        ),
+                                                      );
+                                                    },
                                                   ),
                                                   IconButton(
                                                     onPressed: () {

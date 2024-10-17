@@ -103,8 +103,6 @@ class SignUpScreen extends StatelessWidget {
                                 emailController.clear();
                                 passwordController.clear();
                                 confirmPasswordController.clear();
-                                // Navigator.pushNamed(
-                                //     context, RouteGenerator.mainScreen);
                               } catch (e) {
                                 print(e.toString());
                               }

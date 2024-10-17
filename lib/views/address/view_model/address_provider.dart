@@ -146,7 +146,6 @@ class AddressProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       showToast("Address was not added");
-      print("add adress failed");
     }
   }
 

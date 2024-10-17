@@ -19,7 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        Navigator.pushNamed(context, RouteGenerator.authScreen);
+        if (mounted) {
+          Navigator.pushNamed(context, RouteGenerator.authScreen);
+        }
       },
     );
     super.initState();

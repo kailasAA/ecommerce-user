@@ -51,7 +51,7 @@ class _ImageSliderState extends State<ImageSlider> {
                       (index) {
                         return Container(
                           decoration: BoxDecoration(
-                            color: Colors.transparent,
+                            color: ColorPallette.scaffoldBgColor,
                             borderRadius: BorderRadius.circular(15.r),
                           ),
                           child: ClipRRect(
@@ -64,6 +64,7 @@ class _ImageSliderState extends State<ImageSlider> {
                                 return Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(
+                                    color: ColorPallette.scaffoldBgColor,
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                       image: imageProvider,
@@ -148,7 +149,6 @@ class _ImageSliderState extends State<ImageSlider> {
                       )
                     : IconButton(
                         onPressed: () {
-                          print("add to wishlist called");
                           context.read<ProductDetailProvider>().addToWishlist(
                               widget.user?.uid ?? "", widget.productId);
                         },

@@ -27,7 +27,9 @@ class LoginProvider extends ChangeNotifier {
         },
       );
       showToast("Login successfull");
-      Navigator.pushNamed(context, RouteGenerator.mainScreen);
+      if (context.mounted) {
+        Navigator.pushNamed(context, RouteGenerator.mainScreen);
+      }
     } on FirebaseAuthException catch (e) {
       isLoading = false;
       notifyListeners();

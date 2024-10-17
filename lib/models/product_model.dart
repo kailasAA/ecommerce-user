@@ -26,13 +26,4 @@ class ProductModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'category_name': categoryName,
-      'brand_name': brandName,
-      'category_id': categoryId,
-      'id': id,
-    };
-  }
 }

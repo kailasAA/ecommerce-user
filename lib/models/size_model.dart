@@ -22,19 +22,7 @@ class SizeModel {
   });
 
  
-  Map<String, dynamic> toMap() {
-    return {
-      'category_id': categoryId,
-      'discount_price': discountPrice,
-      'product_id': productId,
-      'recieving_price': receivingPrice,
-      'selling_price': sellingPrice,
-      'size': size,
-      'size_id': sizeId,
-      'stock': stock,
-      'variant_id': variantId,
-    };
-  }
+
 
   factory SizeModel.fromMap(Map<String, dynamic> map) {
     return SizeModel(

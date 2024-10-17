@@ -67,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
         body: PageView(
           controller: context.read<MainScreenProvider>().pageController,
           onPageChanged: (value) {
-            mainscreenProvider.updateIndex(value); 
+            mainscreenProvider.updateIndex(value);
           },
           children: screenList,
         ),
@@ -82,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
               selectedLabelStyle:
                   FontPallette.headingStyle.copyWith(fontSize: 13.sp),
               showUnselectedLabels: false,
-              currentIndex: value, 
+              currentIndex: value,
               iconSize: 20,
               selectedFontSize: 12,
               elevation: 0,
@@ -90,7 +90,10 @@ class _MainScreenState extends State<MainScreen> {
               unselectedItemColor: ColorPallette.greyColor,
               onTap: (val) {
                 mainscreenProvider.updateIndex(val);
-                context.read<MainScreenProvider>().pageController?.jumpToPage(val);
+                context
+                    .read<MainScreenProvider>()
+                    .pageController
+                    ?.jumpToPage(val);
               },
               items: List.generate(
                 bottomnavText.length,

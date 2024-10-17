@@ -6,7 +6,7 @@ import 'package:ecommerce_user_side/utils/color_pallette.dart';
 import 'package:ecommerce_user_side/utils/font_pallette.dart';
 import 'package:ecommerce_user_side/views/detail_page/view_model/product_detail_provider.dart';
 import 'package:ecommerce_user_side/views/home/view_model/home_provider.dart';
-import 'package:ecommerce_user_side/views/search_screen/view/search_screen.dart';
+import 'package:ecommerce_user_side/views/search_screen/view/widgets/product_grid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';

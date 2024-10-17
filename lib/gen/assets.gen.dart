@@ -12,64 +12,64 @@ import 'package:flutter/widgets.dart';
 class Assets {
   Assets._();
 
-  static const String activitySvgrepoCom = 'assets/activity-svgrepo-com.svg';
-  static const String addSquareSvgrepoCom = 'assets/add-square-svgrepo-com.svg';
-  static const String additemSvgrepoCom = 'assets/additem-svgrepo-com.svg';
-  static const String archiveAddSvgrepoCom =
-      'assets/archive-add-svgrepo-com.svg';
-  static const String arrowCircleLeftSvgrepoCom =
-      'assets/arrow-circle-left-svgrepo-com.svg';
-  static const String arrowCircleRightSvgrepoCom =
-      'assets/arrow-circle-right-svgrepo-com.svg';
-  static const String backspaceSvgrepoCom = 'assets/backspace-svgrepo-com.svg';
-  static const String bagCrossSvgrepoCom = 'assets/bag-cross-svgrepo-com.svg';
-  static const String bagSvgrepoCom = 'assets/bag-svgrepo-com.svg';
+  // static const String activitySvgrepoCom = 'assets/activity-svgrepo-com.svg';
+  // static const String addSquareSvgrepoCom = 'assets/add-square-svgrepo-com.svg';
+  // static const String additemSvgrepoCom = 'assets/additem-svgrepo-com.svg';
+  // static const String archiveAddSvgrepoCom =
+  //     'assets/archive-add-svgrepo-com.svg';
+  // static const String arrowCircleLeftSvgrepoCom =
+  //     'assets/arrow-circle-left-svgrepo-com.svg';
+  // static const String arrowCircleRightSvgrepoCom =
+  //     'assets/arrow-circle-right-svgrepo-com.svg';
+  // static const String backspaceSvgrepoCom = 'assets/backspace-svgrepo-com.svg';
+  // static const String bagCrossSvgrepoCom = 'assets/bag-cross-svgrepo-com.svg';
+  // static const String bagSvgrepoCom = 'assets/bag-svgrepo-com.svg';
   static const String cartLargeMinimalisticSvgrepoCom =
       'assets/cart-large-minimalistic-svgrepo-com.svg';
-  static const String cartsCartSvgrepoCom = 'assets/carts-cart-svgrepo-com.svg';
-  static const String editSvgrepoCom = 'assets/edit-svgrepo-com.svg';
-  static const String galleryAddSvgrepoCom =
-      'assets/gallery-add-svgrepo-com.svg';
-  static const String galleryRemoveSvgrepoCom =
-      'assets/gallery-remove-svgrepo-com.svg';
-  static const String heartSvgrepoCom = 'assets/heart-svgrepo-com.svg';
+  // static const String cartsCartSvgrepoCom = 'assets/carts-cart-svgrepo-com.svg';
+  // static const String editSvgrepoCom = 'assets/edit-svgrepo-com.svg';
+  // static const String galleryAddSvgrepoCom =
+  //     'assets/gallery-add-svgrepo-com.svg';
+  // static const String galleryRemoveSvgrepoCom =
+  //     'assets/gallery-remove-svgrepo-com.svg';
+  // static const String heartSvgrepoCom = 'assets/heart-svgrepo-com.svg';
   static const String home1SvgrepoCom = 'assets/home-1-svgrepo-com.svg';
-  static const String home2SvgrepoCom = 'assets/home-2-svgrepo-com.svg';
-  static const String labelPriceSvgrepoCom =
-      'assets/label-price-svgrepo-com.svg';
+  // static const String home2SvgrepoCom = 'assets/home-2-svgrepo-com.svg';
+  // static const String labelPriceSvgrepoCom =
+  //     'assets/label-price-svgrepo-com.svg';
   static const String login = 'assets/login.json';
-  static const String noteNotepadSvgrepoCom =
-      'assets/note-notepad-svgrepo-com.svg';
+  // static const String noteNotepadSvgrepoCom =
+  //     'assets/note-notepad-svgrepo-com.svg';
   static const AssetGenImage pexelsAlexandr =
       AssetGenImage('assets/pexels-alexandr.jpg');
   static const AssetGenImage pexelsThelazyartist =
       AssetGenImage('assets/pexels-thelazyartist.jpg');
   static const AssetGenImage pexels = AssetGenImage('assets/pexels.jpg');
-  static const String productsProductSvgrepoCom =
-      'assets/products-product-svgrepo-com.svg';
+  // static const String productsProductSvgrepoCom =
+  //     'assets/products-product-svgrepo-com.svg';
   static const String profileCircleSvgrepoCom =
       'assets/profile-circle-svgrepo-com.svg';
   static const String profile = 'assets/profile.json';
-  static const String receiptEditSvgrepoCom =
-      'assets/receipt-edit-svgrepo-com.svg';
-  static const String refreshRightSquareSvgrepoCom =
-      'assets/refresh-right-square-svgrepo-com.svg';
+  // static const String receiptEditSvgrepoCom =
+  //     'assets/receipt-edit-svgrepo-com.svg';
+  // static const String refreshRightSquareSvgrepoCom =
+  //     'assets/refresh-right-square-svgrepo-com.svg';
   static const String rotateSvgrepoCom = 'assets/rotate-svgrepo-com.svg';
-  static const String saveRemoveSvgrepoCom =
-      'assets/save-remove-svgrepo-com.svg';
+  // static const String saveRemoveSvgrepoCom =
+  //     'assets/save-remove-svgrepo-com.svg';
   static const String searchAltSvgrepoCom = 'assets/search-alt-svgrepo-com.svg';
-  static const String shoppingBagSvgrepoCom =
-      'assets/shopping-bag-svgrepo-com.svg';
+  // static const String shoppingBagSvgrepoCom =
+  //     'assets/shopping-bag-svgrepo-com.svg';
   static const String shoppingCartSvgrepoCom =
       'assets/shopping-cart-svgrepo-com.svg';
   static const String signup = 'assets/signup.json';
   static const String splash = 'assets/splash.json';
-  static const String supermarketGiftGiftSvgrepoCom =
-      'assets/supermarket-gift-gift-svgrepo-com.svg';
-  static const String supermarketTagSvgrepoCom =
-      'assets/supermarket-tag-svgrepo-com.svg';
-  static const String userSquareSvgrepoCom =
-      'assets/user-square-svgrepo-com.svg';
+  // static const String supermarketGiftGiftSvgrepoCom =
+  //     'assets/supermarket-gift-gift-svgrepo-com.svg';
+  // static const String supermarketTagSvgrepoCom =
+  //     'assets/supermarket-tag-svgrepo-com.svg';
+  // static const String userSquareSvgrepoCom =
+  //     'assets/user-square-svgrepo-com.svg';
 }
 
 class AssetGenImage {

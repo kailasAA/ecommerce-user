@@ -26,14 +26,4 @@ class Variant {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'variant_id': variantId,
-      'product_id': productId,
-      'color': color,
-      'category_id': categoryId,
-      'category_name': categoryName,
-      'image_url': imageUrlList,
-    };
-  }
 }

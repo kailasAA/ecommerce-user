@@ -7,8 +7,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class CartProvider extends ChangeNotifier {
   bool isLoading = false;
+  bool isCartQuantityLoading = false;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<CartModel> cartList = [];
+  String updatingCartId = "";
 
 // to add items to cart
   Future<void> addToCart(CartModel cartModel) async {
@@ -29,7 +31,6 @@ class CartProvider extends ChangeNotifier {
     isLoading = true;
     // notifyListeners();
     try {
-      print("cart items fetched");
       final data = await firestore
           .collection("users")
           .doc(userId)
@@ -42,11 +43,9 @@ class CartProvider extends ChangeNotifier {
         },
       ).toList();
       cartList = list;
-      print(cartList);
       isLoading = false;
       notifyListeners();
     } catch (e) {
-      print("cart was not fetched");
       isLoading = false;
       notifyListeners();
     }
@@ -55,6 +54,9 @@ class CartProvider extends ChangeNotifier {
   // to increase the quantity of the item
   Future<void> increaseQuantity(
       {required String userId, required CartModel cartItem}) async {
+    updatingCartId = cartItem.sizeId ?? "";
+    isCartQuantityLoading = true;
+    notifyListeners();
     try {
       final docRef = await firestore
           .collection('users')
@@ -70,7 +72,13 @@ class CartProvider extends ChangeNotifier {
 
         await getCartItems(userId: userId);
       }
+      updatingCartId = "";
+      isCartQuantityLoading = false;
+      notifyListeners();
     } catch (e) {
+      updatingCartId = "";
+      isCartQuantityLoading = false;
+      notifyListeners();
       showToast(
         "Error increasing quantity: $e",
       );
@@ -80,6 +88,9 @@ class CartProvider extends ChangeNotifier {
 // to decrease the quantity of the item
   Future<void> decreaseQuantity(
       {required String userId, required CartModel cartItem}) async {
+    updatingCartId = cartItem.sizeId ?? "";
+    isCartQuantityLoading = true;
+    notifyListeners();
     try {
       final docRef = await firestore
           .collection('users')
@@ -101,7 +112,13 @@ class CartProvider extends ChangeNotifier {
               toastColor: Colors.orange, gravity: ToastGravity.CENTER);
         }
       }
+      updatingCartId = "";
+      isCartQuantityLoading = false;
+      notifyListeners();
     } catch (e) {
+      updatingCartId = "";
+      isCartQuantityLoading = false;
+      notifyListeners();
       showToast("Error decreasing quantity: $e",
           toastColor: Colors.red, gravity: ToastGravity.CENTER);
     }
@@ -136,7 +153,6 @@ class CartProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      print(userId);
       final cartRef =
           firestore.collection('users').doc(userId).collection('cart');
 

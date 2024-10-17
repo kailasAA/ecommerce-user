@@ -176,7 +176,7 @@ class ProductTile extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Price : ₹${sizes?[0].sellingPrice ?? ""}",
+                                "Price : ₹${sizes?[0].discountPrice ?? ""}",
                                 style: FontPallette.headingStyle
                                     .copyWith(fontSize: 13.sp),
                               ),
